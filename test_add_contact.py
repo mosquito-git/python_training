@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 # from selenium.common.exceptions import NoSuchElementException
 # from selenium.common.exceptions import NoAlertPresentException
@@ -23,24 +23,24 @@ class TestAddContact(unittest.TestCase):
         self.fill_telephone_fields(wd, contact.FillTelephoneFields(home="812-555-44-33", mobile="+7-935-777-88-99", work="567-78-99", fax="990-76-56"))
         self.fill_email_fields(wd, contact.FillEmailFields(email="ckckc@mail.ru", email2="wewe@mail2.ru", email3="wewrdd@mail3.ru", homepage="www.hfhfhf.ru"))
         self.fill_birthday_fields(wd, contact.FillBirthdayFields(bday="10", bmonth="May", byear="2000", aday="3", amonth="April", ayear="1999"))
-        self.fill_secondary_fields(wd)
+        self.fill_secondary_fields(wd, contact.FillSecondaryFields(address2="sib", phone2="www.home2.ru", notes="notesnotesnotes"))
         self.submit_click(wd)
         self.return_to_home_page(wd)
         self.logout(wd)
 
-    def fill_secondary_fields(self, wd):
+    def fill_secondary_fields(self, wd, secondaryfields):
         # fill address #2
         wd.find_element(By.NAME, "address2").click()
         wd.find_element(By.NAME, "address2").clear()
-        wd.find_element(By.NAME, "address2").send_keys("msk")
+        wd.find_element(By.NAME, "address2").send_keys(secondaryfields.address2)
         # phone #2
         wd.find_element(By.NAME, "phone2").click()
         wd.find_element(By.NAME, "phone2").clear()
-        wd.find_element(By.NAME, "phone2").send_keys("www.hhhhhh.com")
+        wd.find_element(By.NAME, "phone2").send_keys(secondaryfields.phone2)
         # notes
         wd.find_element(By.NAME, "notes").click()
         wd.find_element(By.NAME, "notes").clear()
-        wd.find_element(By.NAME, "notes").send_keys("hkhjhkjhlku")
+        wd.find_element(By.NAME, "notes").send_keys(secondaryfields.notes)
 
     def fill_birthday_fields(self, wd, birthdayfields):
         # fill birthday
