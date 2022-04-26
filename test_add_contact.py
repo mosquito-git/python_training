@@ -14,7 +14,9 @@ class TestAddContact(unittest.TestCase):
     
     def test_add_contact(self):
         wd = self.wd
+        # open home page
         wd.get("http://127.0.0.1/addressbook/")
+        # login
         wd.find_element(By.NAME, "user").click()
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys("admin")
@@ -23,7 +25,9 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "pass").clear()
         wd.find_element(By.NAME, "pass").send_keys("secret")
         wd.find_element(By.XPATH, "//input[@value='Login']").click()
+        # open new contact page
         wd.find_element(By.LINK_TEXT, "add new").click()
+        # fill contact form
         wd.find_element(By.NAME, "firstname").click()
         wd.find_element(By.NAME, "firstname").clear()
         wd.find_element(By.NAME, "firstname").send_keys("aaaaaaa")
@@ -80,10 +84,13 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "byear").send_keys("2013")
         wd.find_element(By.NAME, "aday").click()
         Select(wd.find_element(By.NAME, "aday")).select_by_visible_text("15")
-        wd.find_element(By.XPATH, "//div[@id='content']/form/select[3]/option[17]").click()
+        wd.find_element(By.XPATH, "//option[@value='15']").click()
+        # wd.find_element(By.XPATH, "//div[@id='content']/form/select[3]/option[17]").click()
+        # wd.find_element(By.CSS_SELECTOR, "select[name=\"aday\"] &gt; option[value=\"15\"]").click()
         wd.find_element(By.NAME, "amonth").click()
         Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text("August")
-        wd.find_element(By.XPATH, "//div[@id='content']/form/select[4]/option[9]").click()
+        # wd.find_element(By.XPATH, "//div[@id='content']/form/select[4]/option[9]").click()
+        wd.find_element(By.XPATH, "//option[@value='August']").click()
         wd.find_element(By.NAME, "ayear").click()
         wd.find_element(By.NAME, "ayear").clear()
         wd.find_element(By.NAME, "ayear").send_keys("1990")
@@ -97,7 +104,9 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "notes").clear()
         wd.find_element(By.NAME, "notes").send_keys("hkhjhkjhlku")
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
+        # return to home page
         wd.find_element(By.LINK_TEXT, "home page").click()
+        # logout
         wd.find_element(By.LINK_TEXT, "Logout").click()
     
     def tearDown(self):
