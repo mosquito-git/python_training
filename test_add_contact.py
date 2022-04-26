@@ -22,7 +22,7 @@ class TestAddContact(unittest.TestCase):
         self.fill_company_fields(wd, contact.FillCompanyFields(title="ddddddd", company="lsrhlrhg", address="kshfu"))
         self.fill_telephone_fields(wd, contact.FillTelephoneFields(home="812-555-44-33", mobile="+7-935-777-88-99", work="567-78-99", fax="990-76-56"))
         self.fill_email_fields(wd, contact.FillEmailFields(email="ckckc@mail.ru", email2="wewe@mail2.ru", email3="wewrdd@mail3.ru", homepage="www.hfhfhf.ru"))
-        self.fill_birthday_fields(wd)
+        self.fill_birthday_fields(wd, contact.FillBirthdayFields(bday="10", bmonth="May", byear="2000", aday="3", amonth="April", ayear="1999"))
         self.fill_secondary_fields(wd)
         self.submit_click(wd)
         self.return_to_home_page(wd)
@@ -42,31 +42,31 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "notes").clear()
         wd.find_element(By.NAME, "notes").send_keys("hkhjhkjhlku")
 
-    def fill_birthday_fields(self, wd):
+    def fill_birthday_fields(self, wd, birthdayfields):
         # fill birthday
         wd.find_element(By.NAME, "bday").click()
-        Select(wd.find_element(By.NAME, "bday")).select_by_visible_text("13")
-        wd.find_element(By.CSS_SELECTOR, 'select[name="bday"] > option[value="13"]').click()
+        Select(wd.find_element(By.NAME, "bday")).select_by_visible_text(birthdayfields.bday)
+        wd.find_element(By.CSS_SELECTOR, f'select[name="bday"] > option[value="{birthdayfields.bday}"]').click()
         # bmonth
         wd.find_element(By.NAME, "bmonth").click()
-        Select(wd.find_element(By.NAME, "bmonth")).select_by_visible_text("December")
-        wd.find_element(By.CSS_SELECTOR, 'select[name="bmonth"] > option[value="December"]').click()
+        Select(wd.find_element(By.NAME, "bmonth")).select_by_visible_text(birthdayfields.bmonth)
+        wd.find_element(By.CSS_SELECTOR, f'select[name="bmonth"] > option[value="{birthdayfields.bmonth}"]').click()
         # byear
         wd.find_element(By.NAME, "byear").click()
         wd.find_element(By.NAME, "byear").clear()
-        wd.find_element(By.NAME, "byear").send_keys("2013")
+        wd.find_element(By.NAME, "byear").send_keys(birthdayfields.byear)
         # aday
         wd.find_element(By.NAME, "aday").click()
-        Select(wd.find_element(By.NAME, "aday")).select_by_visible_text("15")
-        wd.find_element(By.CSS_SELECTOR, 'select[name="aday"] > option[value="15"]').click()
+        Select(wd.find_element(By.NAME, "aday")).select_by_visible_text(birthdayfields.aday)
+        wd.find_element(By.CSS_SELECTOR, f'select[name="aday"] > option[value="{birthdayfields.aday}"]').click()
         # amonth
         wd.find_element(By.NAME, "amonth").click()
-        Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text("August")
-        wd.find_element(By.CSS_SELECTOR, 'select[name="amonth"] > option[value="August"]').click()
+        Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text(birthdayfields.amonth)
+        wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{birthdayfields.amonth}"]').click()
         # ayear
         wd.find_element(By.NAME, "ayear").click()
         wd.find_element(By.NAME, "ayear").clear()
-        wd.find_element(By.NAME, "ayear").send_keys("1990")
+        wd.find_element(By.NAME, "ayear").send_keys(birthdayfields.ayear)
 
     def fill_email_fields(self, wd, emailfields):
         # fill email#1
