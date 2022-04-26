@@ -11,3 +11,11 @@ class FillCompanyFields:
         self.title = title
         self.company = company
         self.address = address
+
+
+class FillTelephoneFields:
+    def __init__(self, home, mobile, work, fax):
+        self.home = home
+        self.mobile = mobile
+        self.work = work
+        self.fax = fax

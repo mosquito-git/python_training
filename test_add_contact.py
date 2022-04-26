@@ -20,7 +20,7 @@ class TestAddContact(unittest.TestCase):
         self.add_new_contact_click(wd)
         self.fill_name(wd, contact.FillName(firstname="aaaaa", middlename="bbbbb", lastname="ssssss", nickname="hhhhhhhh"))
         self.fill_company_fields(wd, contact.FillCompanyFields(title="ddddddd", company="lsrhlrhg", address="kshfu"))
-        self.fill_telephone_fields(wd)
+        self.fill_telephone_fields(wd, contact.FillTelephoneFields(home="812-555-44-33", mobile="+7-935-777-88-99", work="567-78-99", fax="990-76-56"))
         self.fill_email_fields(wd)
         self.fill_birthday_fields(wd)
         self.fill_secondary_fields(wd)
@@ -86,23 +86,23 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "homepage").clear()
         wd.find_element(By.NAME, "homepage").send_keys("www.hello.ru")
 
-    def fill_telephone_fields(self, wd):
+    def fill_telephone_fields(self, wd, telfields):
         # fill home
         wd.find_element(By.NAME, "home").click()
         wd.find_element(By.NAME, "home").clear()
-        wd.find_element(By.NAME, "home").send_keys("spb")
+        wd.find_element(By.NAME, "home").send_keys(telfields.home)
         # fill mobile tel
         wd.find_element(By.NAME, "mobile").click()
         wd.find_element(By.NAME, "mobile").clear()
-        wd.find_element(By.NAME, "mobile").send_keys("+71239999999")
+        wd.find_element(By.NAME, "mobile").send_keys(telfields.mobile)
         # fill work tel
         wd.find_element(By.NAME, "work").click()
         wd.find_element(By.NAME, "work").clear()
-        wd.find_element(By.NAME, "work").send_keys("8678998")
+        wd.find_element(By.NAME, "work").send_keys(telfields.work)
         # fill fax
         wd.find_element(By.NAME, "fax").click()
         wd.find_element(By.NAME, "fax").clear()
-        wd.find_element(By.NAME, "fax").send_keys("3456789")
+        wd.find_element(By.NAME, "fax").send_keys(telfields.fax)
 
     def fill_company_fields(self, wd, companyfields):
         # fill title
