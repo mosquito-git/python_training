@@ -21,7 +21,7 @@ class TestAddContact(unittest.TestCase):
         self.fill_name(wd, contact.FillName(firstname="aaaaa", middlename="bbbbb", lastname="ssssss", nickname="hhhhhhhh"))
         self.fill_company_fields(wd, contact.FillCompanyFields(title="ddddddd", company="lsrhlrhg", address="kshfu"))
         self.fill_telephone_fields(wd, contact.FillTelephoneFields(home="812-555-44-33", mobile="+7-935-777-88-99", work="567-78-99", fax="990-76-56"))
-        self.fill_email_fields(wd)
+        self.fill_email_fields(wd, contact.FillEmailFields(email="ckckc@mail.ru", email2="wewe@mail2.ru", email3="wewrdd@mail3.ru", homepage="www.hfhfhf.ru"))
         self.fill_birthday_fields(wd)
         self.fill_secondary_fields(wd)
         self.submit_click(wd)
@@ -68,23 +68,23 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "ayear").clear()
         wd.find_element(By.NAME, "ayear").send_keys("1990")
 
-    def fill_email_fields(self, wd):
+    def fill_email_fields(self, wd, emailfields):
         # fill email#1
         wd.find_element(By.NAME, "email").click()
         wd.find_element(By.NAME, "email").clear()
-        wd.find_element(By.NAME, "email").send_keys("ecetfrfr@gmail.com")
+        wd.find_element(By.NAME, "email").send_keys(emailfields.email)
         # email #2
         wd.find_element(By.NAME, "email2").click()
         wd.find_element(By.NAME, "email2").clear()
-        wd.find_element(By.NAME, "email2").send_keys("adewda@yandex.ru")
+        wd.find_element(By.NAME, "email2").send_keys(emailfields.email2)
         # email #3
         wd.find_element(By.NAME, "email3").click()
         wd.find_element(By.NAME, "email3").clear()
-        wd.find_element(By.NAME, "email3").send_keys("decd@mail.ru")
+        wd.find_element(By.NAME, "email3").send_keys(emailfields.email3)
         # fill site homepage
         wd.find_element(By.NAME, "homepage").click()
         wd.find_element(By.NAME, "homepage").clear()
-        wd.find_element(By.NAME, "homepage").send_keys("www.hello.ru")
+        wd.find_element(By.NAME, "homepage").send_keys(emailfields.homepage)
 
     def fill_telephone_fields(self, wd, telfields):
         # fill home
