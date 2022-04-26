@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 # from selenium.common.exceptions import NoSuchElementException
 # from selenium.common.exceptions import NoAlertPresentException
 import unittest
+import contact
 
 class TestAddContact(unittest.TestCase):
     def setUp(self):
@@ -17,7 +18,7 @@ class TestAddContact(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
         self.add_new_contact_click(wd)
-        self.fill_name(wd)
+        self.fill_name(wd, contact.FillName(firstname="aaaaa", middlename="bbbbb", lastname="ssssss", nickname="hhhhhhhh"))
         self.fill_company_fields(wd)
         self.fill_telephone_fields(wd)
         self.fill_email_fields(wd)
@@ -117,23 +118,23 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "address").clear()
         wd.find_element(By.NAME, "address").send_keys("spb")
 
-    def fill_name(self, wd):
+    def fill_name(self, wd, fillname):
         # fill name
         wd.find_element(By.NAME, "firstname").click()
         wd.find_element(By.NAME, "firstname").clear()
-        wd.find_element(By.NAME, "firstname").send_keys("aaaaaaa")
+        wd.find_element(By.NAME, "firstname").send_keys(fillname.firstname)
         # fill middlename
         wd.find_element(By.NAME, "middlename").click()
         wd.find_element(By.NAME, "middlename").clear()
-        wd.find_element(By.NAME, "middlename").send_keys("bbbbbbbb")
+        wd.find_element(By.NAME, "middlename").send_keys(fillname.middlename)
         # fill lastname
         wd.find_element(By.NAME, "lastname").click()
         wd.find_element(By.NAME, "lastname").clear()
-        wd.find_element(By.NAME, "lastname").send_keys("ccccccc")
+        wd.find_element(By.NAME, "lastname").send_keys(fillname.lastname)
         # fill nickname
         wd.find_element(By.NAME, "nickname").click()
         wd.find_element(By.NAME, "nickname").clear()
-        wd.find_element(By.NAME, "nickname").send_keys("erererer")
+        wd.find_element(By.NAME, "nickname").send_keys(fillname.nickname)
 
     def add_new_contact_click(self, wd):
         wd.find_element(By.LINK_TEXT, "add new").click()
