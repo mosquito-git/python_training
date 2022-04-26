@@ -19,7 +19,7 @@ class TestAddContact(unittest.TestCase):
         self.login(wd, "admin", "secret")
         self.add_new_contact_click(wd)
         self.fill_name(wd, contact.FillName(firstname="aaaaa", middlename="bbbbb", lastname="ssssss", nickname="hhhhhhhh"))
-        self.fill_company_fields(wd)
+        self.fill_company_fields(wd, contact.FillCompanyFields(title="ddddddd", company="lsrhlrhg", address="kshfu"))
         self.fill_telephone_fields(wd)
         self.fill_email_fields(wd)
         self.fill_birthday_fields(wd)
@@ -104,19 +104,19 @@ class TestAddContact(unittest.TestCase):
         wd.find_element(By.NAME, "fax").clear()
         wd.find_element(By.NAME, "fax").send_keys("3456789")
 
-    def fill_company_fields(self, wd):
+    def fill_company_fields(self, wd, companyfields):
         # fill title
         wd.find_element(By.NAME, "title").click()
         wd.find_element(By.NAME, "title").clear()
-        wd.find_element(By.NAME, "title").send_keys("dfdfdfdff")
+        wd.find_element(By.NAME, "title").send_keys(companyfields.title)
         # fill company name
         wd.find_element(By.NAME, "company").click()
         wd.find_element(By.NAME, "company").clear()
-        wd.find_element(By.NAME, "company").send_keys("dadadda")
+        wd.find_element(By.NAME, "company").send_keys(companyfields.company)
         # fill company address
         wd.find_element(By.NAME, "address").click()
         wd.find_element(By.NAME, "address").clear()
-        wd.find_element(By.NAME, "address").send_keys("spb")
+        wd.find_element(By.NAME, "address").send_keys(companyfields.address)
 
     def fill_name(self, wd, fillname):
         # fill name
