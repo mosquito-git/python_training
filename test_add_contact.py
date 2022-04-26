@@ -13,7 +13,7 @@ class TestAddContact(unittest.TestCase):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
     
-    def test_add_contact(self):
+    def test_add_contact1(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
@@ -24,6 +24,21 @@ class TestAddContact(unittest.TestCase):
         self.fill_email_fields(wd, contact.FillEmailFields(email="ckckc@mail.ru", email2="wewe@mail2.ru", email3="wewrdd@mail3.ru", homepage="www.hfhfhf.ru"))
         self.fill_birthday_fields(wd, contact.FillBirthdayFields(bday="10", bmonth="May", byear="2000", aday="3", amonth="April", ayear="1999"))
         self.fill_secondary_fields(wd, contact.FillSecondaryFields(address2="sib", phone2="www.home2.ru", notes="notesnotesnotes"))
+        self.submit_click(wd)
+        self.return_to_home_page(wd)
+        self.logout(wd)
+
+    def test_add_empty_contact(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, "admin", "secret")
+        self.add_new_contact_click(wd)
+        self.fill_name(wd, contact.FillName(firstname="", middlename="", lastname="", nickname=""))
+        self.fill_company_fields(wd, contact.FillCompanyFields(title="", company="", address=""))
+        self.fill_telephone_fields(wd, contact.FillTelephoneFields(home="", mobile="", work="", fax=""))
+        self.fill_email_fields(wd, contact.FillEmailFields(email="", email2="", email3="", homepage=""))
+        self.fill_birthday_fields(wd, contact.FillBirthdayFields(bday="", bmonth="-", byear="", aday="", amonth="-", ayear=""))
+        self.fill_secondary_fields(wd, contact.FillSecondaryFields(address2="", phone2="", notes=""))
         self.submit_click(wd)
         self.return_to_home_page(wd)
         self.logout(wd)
