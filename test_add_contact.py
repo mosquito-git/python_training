@@ -143,9 +143,6 @@ class TestAddContact(unittest.TestCase):
         # submit click
         wd.find_element(By.NAME, "submit").click()
 
-    # def add_new_contact_click(self, wd):
-    #     wd.find_element(By.LINK_TEXT, "add new").click()
-
     def login(self, wd, username, password):
         # login
         wd.find_element(By.NAME, "user").click()
@@ -159,9 +156,6 @@ class TestAddContact(unittest.TestCase):
 
     def open_home_page(self, wd):
         wd.get("http://127.0.0.1/addressbook/")
-
-    # def submit_click(self, wd):
-    #     wd.find_element(By.NAME, "submit").click()
 
     def return_to_home_page(self, wd):
         wd.find_element(By.LINK_TEXT, "home page").click()
