@@ -90,7 +90,7 @@ class ContactHelper:
         # amonth
         wd.find_element(By.NAME, "amonth").click()
         Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text(contact.amonth)
-        wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{contact.amonth}"]').click()
+        # wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{contact.amonth}"]').click()
         # ayear
         wd.find_element(By.NAME, "ayear").click()
         wd.find_element(By.NAME, "ayear").clear()
@@ -206,7 +206,7 @@ class ContactHelper:
         # amonth
         wd.find_element(By.NAME, "amonth").click()
         Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text(contact.amonth)
-        wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{contact.amonth.lower()}"]').click()
+        # wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{contact.amonth.lower()}"]').click()
         # ayear
         wd.find_element(By.NAME, "ayear").click()
         wd.find_element(By.NAME, "ayear").clear()
