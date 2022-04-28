@@ -9,6 +9,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
+        self.open_home_page()
         # click add new contact
         wd.find_element(By.LINK_TEXT, "add new").click()
         # fill name
@@ -112,6 +113,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        self.open_home_page()
         # check first contact and click
         wd.find_element(By.NAME, "selected[]").click()
         # click delete button
@@ -122,7 +124,7 @@ class ContactHelper:
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
-        # login
+        self.open_home_page()
         # check first contact
         wd.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').click()
         # click href edit
@@ -206,6 +208,7 @@ class ContactHelper:
         # amonth
         wd.find_element(By.NAME, "amonth").click()
         Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text(contact.amonth)
+        # contact add month value upper, edit month lower
         # wd.find_element(By.CSS_SELECTOR, f'select[name="amonth"] > option[value="{contact.amonth.lower()}"]').click()
         # ayear
         wd.find_element(By.NAME, "ayear").click()
@@ -227,7 +230,10 @@ class ContactHelper:
         # wd.find_element(By.NAME, "update").click()
         wd.find_element(By.CSS_SELECTOR, 'input[type="submit"][name="update"]').click()
 
-
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "home page").click()
+
+    def open_home_page(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "home").click()
