@@ -4,18 +4,18 @@ from model.group import Group
 
 
 def test_edit_first_group1(app):
-    app.session.login(username="admin", password="secret")
+    # app.session.login(username="admin", password="secret")
     app.group.edit_first_group(Group(name="edit", header="group", footer="form"))
-    app.session.logout()
+    # app.session.logout()
 
 
 def test_edit_group_name(app):
-    app.session.login(username="admin", password="secret")
+    # app.session.login(username="admin", password="secret")
     app.group.edit_first_group(Group(name="new group"))
-    app.session.logout()
+    # app.session.logout()
 
 
 def test_edit_group_header(app):
-    app.session.login(username="admin", password="secret")
+    # app.session.login(username="admin", password="secret")
     app.group.edit_first_group(Group(header="new header"))
-    app.session.logout()
+    # app.session.logout()
