@@ -18,9 +18,9 @@ def test_edit_first_contact1(app):
 def test_edit_first_contact_firstname(app):
     if app.contact.count() == 0:
         app.contact.create(contact.Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
-                               address="", home="", mobile="", work="", fax="", email="", email2="",
-                               email3="", homepage="", bday="", bmonth="-", byear="", aday="", amonth="-",
-                               ayear="", address2="", phone2="", notes=""))
+                                           address="", home="", mobile="", work="", fax="", email="", email2="",
+                                           email3="", homepage="", bday="", bmonth="-", byear="", aday="", amonth="-",
+                                           ayear="", address2="", phone2="", notes=""))
     app.contact.edit_first_contact(contact.Contact(firstname="new firstname"))
     app.contact.return_to_home_page()
 
