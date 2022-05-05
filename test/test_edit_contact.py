@@ -2,6 +2,8 @@ from model import contact
 
 
 def test_edit_first_contact1(app):
+    if app.contact.count() == 0:
+        app.contact.create(contact.Contact(firstname="test1", middlename="dfdfdf", lastname=""))
     app.contact.edit_first_contact(contact.Contact(firstname="edit", middlename="contact", lastname="edit",
                                                    nickname="edit", title="edit", company="edit",
                                                    address="edit", home="812-555-44-33", mobile="+7-935-777-88-99",
@@ -14,15 +16,24 @@ def test_edit_first_contact1(app):
 
 
 def test_edit_first_contact_firstname(app):
+    if app.contact.count() == 0:
+        app.contact.create(contact.Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
+                               address="", home="", mobile="", work="", fax="", email="", email2="",
+                               email3="", homepage="", bday="", bmonth="-", byear="", aday="", amonth="-",
+                               ayear="", address2="", phone2="", notes=""))
     app.contact.edit_first_contact(contact.Contact(firstname="new firstname"))
     app.contact.return_to_home_page()
 
 
 def test_edit_first_contact_bday(app):
+    if app.contact.count() == 0:
+        app.contact.create(contact.Contact(firstname="test2", middlename="", lastname="test2"))
     app.contact.edit_first_contact(contact.Contact(bday="11"))
     app.contact.return_to_home_page()
 
 
 def test_edit_first_contact_amonth(app):
+    if app.contact.count() == 0:
+        app.contact.create(contact.Contact(firstname="test3", middlename="test3", lastname="test3"))
     app.contact.edit_first_contact(contact.Contact(amonth="June"))
     app.contact.return_to_home_page()
