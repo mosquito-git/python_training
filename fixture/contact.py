@@ -56,6 +56,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # submit click
         wd.find_element(By.NAME, "submit").click()
+        self.contact_cache = None
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -67,6 +68,7 @@ class ContactHelper:
         # xpath = // input[ @ value = 'Delete']
         # accept deletion
         wd.switch_to.alert.accept()
+        self.contact_cache = None
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -79,6 +81,7 @@ class ContactHelper:
         # update button click
         # wd.find_element(By.NAME, "update").click()
         wd.find_element(By.CSS_SELECTOR, 'input[type="submit"][name="update"]').click()
+        self.contact_cache = None
 
     def return_to_home_page(self):
         wd = self.app.wd
@@ -94,16 +97,19 @@ class ContactHelper:
         self.open_home_page()
         return len(wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]'))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        for element in wd.find_elements(By.CSS_SELECTOR, 'tr[name="entry"]'):
-            td = element.find_elements(By.CSS_SELECTOR, 'td')
-            # print('lastname=',td[1].text)
-            # print('firstname=', td[2].text)
-            id = element.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').get_attribute(
-                "value")
-            # print("id=", id)
-            contacts.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contact_cache = []
+            for element in wd.find_elements(By.CSS_SELECTOR, 'tr[name="entry"]'):
+                td = element.find_elements(By.CSS_SELECTOR, 'td')
+                # print('lastname=',td[1].text)
+                # print('firstname=', td[2].text)
+                id = element.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').get_attribute(
+                    "value")
+                # print("id=", id)
+                self.contact_cache.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id))
+        return list(self.contact_cache)
