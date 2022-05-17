@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -33,7 +34,6 @@ class ContactHelper:
         self.change_field_value("address2", contact.address2)
         self.change_field_value("phone2", contact.phone2)
         self.change_field_value("notes", contact.home)
-
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -93,3 +93,17 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]'))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        for element in wd.find_elements(By.CSS_SELECTOR, 'tr[name="entry"]'):
+            td = element.find_elements(By.CSS_SELECTOR, 'td')
+            # print('lastname=',td[1].text)
+            # print('firstname=', td[2].text)
+            id = element.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').get_attribute(
+                "value")
+            # print("id=", id)
+            contacts.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id))
+        return contacts
