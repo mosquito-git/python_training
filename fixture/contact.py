@@ -59,10 +59,12 @@ class ContactHelper:
         self.contact_cache = None
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
-        # check first contact and click
-        wd.find_element(By.NAME, "selected[]").click()
+        self.select_contact_by_index(index)
         # click delete button
         wd.find_element(By.CSS_SELECTOR, 'input[value="Delete"]').click()
         # xpath = // input[ @ value = 'Delete']
@@ -70,13 +72,26 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        print("index in select_contact_by_index=", index)
+        # wd.find_elements(By.NAME, "selected[]")[index].click()
+        wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]')[index].click()
+
     def edit_first_contact(self, contact):
+        self.edit_contact_by_index(0, contact)
+
+
+    def edit_contact_by_index(self, index,  contact):
         wd = self.app.wd
         self.open_home_page()
+        print("index in edit_cont_by_index=", index)
         # check first contact
-        wd.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').click()
+        # wd.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').click()
+        # wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]')[index].click()
+        self.select_contact_by_index(index)
         # click href edit
-        wd.find_element(By.CSS_SELECTOR, 'img[alt="Edit"]').click()
+        wd.find_elements(By.CSS_SELECTOR, 'img[alt="Edit"]')[index].click()
         self.fill_contact_form(contact)
         # update button click
         # wd.find_element(By.NAME, "update").click()

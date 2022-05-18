@@ -1,23 +1,29 @@
 from model.contact import Contact
+from random import randrange
+# import time
 
 
 def test_edit_first_contact1(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="test1", middlename="dfdfdf", lastname=""))
     old_contacts = app.contact.get_contact_list()
-    cont = Contact(firstname="edit", middlename="contact", lastname="edit",
-                           nickname="edit", title="edit", company="edit",
-                           address="edit", home="812-555-44-33", mobile="+7-935-777-88-99",
-                           work="567-78-99", fax="990-76-56", email="edit@edit.ru",
-                           email2="edit@mail2.ru", email3="edit@mail3.ru",
-                           homepage="www.edit.ru", bday="23", bmonth="May", byear="2010",
-                           aday="9", amonth="April", ayear="1991", address2="edit",
-                           phone2="www.edit2.ru", notes="edit_notes_edit_notes_edit_notes")
-    app.contact.edit_first_contact(cont)
+    index = randrange(len(old_contacts))
+    cont = Contact(firstname="hello9999", middlename="contact", lastname="fffff9999",
+                   nickname="edit", title="edit", company="mjyhy",
+                   address="edit", home="812-555-44-33", mobile="+7-935-777-88-99",
+                   work="567-78-99", fax="990-76-56", email="edit@edit.ru",
+                   email2="edit@mail2.ru", email3="edit@mail3.ru",
+                   homepage="www.edit.ru", bday="23", bmonth="May", byear="2010",
+                   aday="9", amonth="April", ayear="1991", address2="edit",
+                   phone2="www.edit2.ru", notes="edit_notes_edit_notes_edit_notes")
+    cont.id = old_contacts[index].id
+    # app.contact.edit_first_contact(cont)
+    app.contact.edit_contact_by_index(index, cont)
     app.contact.return_to_home_page()
+    # time.sleep(1)
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
-    old_contacts[0] = cont
+    old_contacts[index] = cont
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 #
