@@ -127,10 +127,9 @@ class ContactHelper:
                 id = element.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').get_attribute(
                     "value")
                 # print("id=", id)
-                all_phones = td[5].text.splitlines()
+                all_phones = td[5].text
                 self.contact_cache.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id,
-                                                  home=all_phones[0], mobile=all_phones[1],
-                                                  work=all_phones[2], phone2=all_phones[3]))
+                                                  all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
