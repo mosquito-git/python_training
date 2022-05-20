@@ -15,7 +15,7 @@ def test_edit_first_contact1(app):
                    email2="edit@mail2.ru", email3="edit@mail3.ru",
                    homepage="www.edit.ru", bday="23", bmonth="May", byear="2010",
                    aday="9", amonth="April", ayear="1991", address2="edit",
-                   phone2="www.edit2.ru", notes="edit_notes_edit_notes_edit_notes")
+                   phone2="11 12 13", notes="edit_notes_edit_notes_edit_notes")
     cont.id = old_contacts[index].id
     # app.contact.edit_first_contact(cont)
     app.contact.edit_contact_by_index(index, cont)

@@ -12,7 +12,7 @@ def test_add_contact1(app):
                            email2="wewe@mail2.ru", email3="wewrdd@mail3.ru",
                            homepage="www.hfhfhf.ru", bday="10", bmonth="May", byear="2000",
                            aday="3", amonth="April", ayear="1999", address2="sib",
-                           phone2="www.home2.ru", notes="notesnotesnotes")
+                           phone2="45 45 54", notes="notesnotesnotes")
     app.contact.create(cont)
     app.contact.return_to_home_page()
     assert len(old_contacts) + 1 == app.contact.count()

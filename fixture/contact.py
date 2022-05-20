@@ -82,8 +82,7 @@ class ContactHelper:
     def edit_first_contact(self, contact):
         self.edit_contact_by_index(0, contact)
 
-
-    def edit_contact_by_index(self, index,  contact):
+    def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
         self.open_home_page()
         print("index in edit_cont_by_index=", index)
@@ -128,8 +127,14 @@ class ContactHelper:
                     "value")
                 # print("id=", id)
                 all_phones = td[5].text
+                address = td[3].text
+                emails_td = td[4]
+                all_emails_selen = emails_td.find_elements(By.CSS_SELECTOR, 'a')
+                all_emails = list(map(lambda x: x.text, all_emails_selen))
                 self.contact_cache.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id,
-                                                  all_phones_from_home_page=all_phones))
+                                                  address=address,
+                                                  all_phones_from_home_page=all_phones,
+                                                  all_emails_from_home_page=all_emails))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
@@ -156,7 +161,12 @@ class ContactHelper:
         mobilephone = wd.find_element(By.NAME, 'mobile').get_attribute('value')
         workphone = wd.find_element(By.NAME, 'work').get_attribute('value')
         phone2 = wd.find_element(By.NAME, 'phone2').get_attribute('value')
-        return Contact(firstname=firstname, lastname=lastname, id=id, home=homephone, mobile=mobilephone, work=workphone, phone2=phone2)
+        address = wd.find_element(By.CSS_SELECTOR, 'textarea[name="address"]').text
+        email = wd.find_element(By.CSS_SELECTOR, 'input[name="email"]').get_attribute('value')
+        email2 = wd.find_element(By.CSS_SELECTOR, 'input[name="email2"]').get_attribute('value')
+        email3 = wd.find_element(By.CSS_SELECTOR, 'input[name="email3"]').get_attribute('value')
+        return Contact(firstname=firstname, lastname=lastname, id=id, home=homephone, mobile=mobilephone,
+                       work=workphone, phone2=phone2, address=address, email=email, email2=email2, email3=email3)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
