@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 import re
+import time
 
 
 class ContactHelper:
@@ -110,6 +111,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.open_home_page()
+        time.sleep(1)
         return len(wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]'))
 
     contact_cache = None
