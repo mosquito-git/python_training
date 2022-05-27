@@ -3,11 +3,19 @@ import pytest
 from model.contact import Contact
 import random
 import string
-import re
+# import re
 
 
-def clear(s):
-    return re.sub("[()\\ -'`]", "", s)
+# def clear(s):
+#     return re.sub("[()\\ -'`]", "", s)
+
+
+def rand_tel():
+    return '+' + str(random.choice(string.digits)) + '(' + "".join(
+        random.choice(string.digits) + random.choice(string.digits) + random.choice(string.digits)) + ')' + "".join(
+        random.choice(string.digits) + random.choice(string.digits) + random.choice(string.digits) + random.choice(
+            string.digits)
+        + random.choice(string.digits) + random.choice(string.digits) + random.choice(string.digits))
 
 
 def rand_year():
@@ -23,8 +31,9 @@ def rand_month():
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " " * 10
-    return clear(prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]))
+    symbols = string.ascii_letters + string.digits  # + string.punctuation + " " * 10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    # return clear(prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]))
 
 
 testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
@@ -35,21 +44,15 @@ testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title
                        lastname=random_string("lastname", 20), nickname=random_string("nickname", 20),
                        title=random_string("title", 20), company=random_string("company", 20),
                        address=random_string("address", 20), home=random.randrange(1, 9),
-                       mobile=random.randrange(1, 9), work=random.randrange(1, 9),
-                       fax=random.randrange(1, 9), email=random_string("email", 5),
+                       mobile=rand_tel(), work=rand_tel(),
+                       fax=random.randrange(1, 99999), email=random_string("email", 5),
                        email2=random_string("email2", 5), email3=random_string("email3", 5),
                        homepage=random_string("homepage", 20),
-                       # bday=random_string("bday", 20),
                        bday=str(random.randrange(1, 32)),
-                       # bmonth="-",
                        bmonth=rand_month(),
-                       # byear=random_string("byear", 20),
                        byear=rand_year(),
-                       # aday=random_string("aday", 20),
                        aday=str(random.randrange(1, 32)),
-                       # amonth="-",
                        amonth=rand_month(),
-                       # ayear=random_string("ayear", 20),
                        ayear=rand_year(),
                        address2=random_string("address2", 20), phone2=random_string("phone2", 20),
                        notes=random_string("notes", 20))
@@ -75,11 +78,3 @@ def test_add_contact1(app, cont):
     old_contacts.append(cont)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-# def test_add_empty_contact(app):
-#     # app.session.login(username="admin", password="secret")
-#     app.contact.create(contact.Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
-#                                address="", home="", mobile="", work="", fax="", email="", email2="",
-#                                email3="", homepage="", bday="", bmonth="-", byear="", aday="", amonth="-",
-#                                ayear="", address2="", phone2="", notes=""))
-#     app.contact.return_to_home_page()
-#     # app.session.logout()
