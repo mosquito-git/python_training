@@ -1,5 +1,17 @@
 from random import randrange
+from model.contact import Contact
 import re
+
+
+def test_data_on_home_page_and_from_db(app, db):
+    some_contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    contact_from_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+
+    print('some_contacts_from_home_page=',some_contacts_from_home_page)
+    print('contact_from_db=', contact_from_db)
+
+    assert sorted(some_contacts_from_home_page, key=Contact.id_or_max) == sorted(contact_from_db, key=Contact.id_or_max)
+
 
 
 def test_data_on_home_page(app):
