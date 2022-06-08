@@ -1,14 +1,19 @@
 from model.contact import Contact
 from random import randrange
+import random
 # import time
 
 
-def test_edit_first_contact1(app):
-    if app.contact.count() == 0:
+def test_edit_first_contact1(app, db, check_ui):
+    # if app.contact.count() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test1", middlename="dfdfdf", lastname=""))
-    old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
-    cont = Contact(firstname="hello9999", middlename="contact", lastname="fffff9999",
+    # old_contacts = app.contact.get_contact_list()
+    old_contacts = db.get_contact_list()
+    contact_rnd = random.choice(old_contacts)
+    idx = old_contacts.index(contact_rnd)
+    # index = randrange(len(old_contacts))
+    cont = Contact(firstname="task20", middlename="edit", lastname="contact",
                    nickname="edit", title="edit", company="mjyhy",
                    address="edit", home="812-555-44-33", mobile="+7-935-777-88-99",
                    work="567-78-99", fax="990-76-56", email="edit@edit.ru",
@@ -16,15 +21,19 @@ def test_edit_first_contact1(app):
                    homepage="www.edit.ru", bday="23", bmonth="May", byear="2010",
                    aday="9", amonth="April", ayear="1991", address2="edit",
                    phone2="11 12 13", notes="edit_notes_edit_notes_edit_notes")
-    cont.id = old_contacts[index].id
+    # cont.id = old_contacts[index].id
+    cont.id = contact_rnd.id
     # app.contact.edit_first_contact(cont)
-    app.contact.edit_contact_by_index(index, cont)
+    # app.contact.edit_contact_by_index(index, cont)
+    app.contact.edit_contact_by_id(cont.id, cont)
     app.contact.return_to_home_page()
     # time.sleep(1)
-    new_contacts = app.contact.get_contact_list()
+    # new_contacts = app.contact.get_contact_list()
+    new_contacts = db.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
-    old_contacts[index] = cont
-    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    if check_ui:
+        old_contacts[idx] = cont
+        assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 #
 # def test_edit_first_contact_firstname(app):

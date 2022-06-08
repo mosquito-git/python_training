@@ -74,11 +74,29 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        # self.select_contact_by_index(index)
+        self.select_contact_by_id(id)
+        # click delete button
+        wd.find_element(By.CSS_SELECTOR, 'input[value="Delete"]').click()
+        # xpath = // input[ @ value = 'Delete']
+        # accept deletion
+        wd.switch_to.alert.accept()
+        self.contact_cache = None
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         print("index in select_contact_by_index=", index)
         # wd.find_elements(By.NAME, "selected[]")[index].click()
         wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]')[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        # print("index in select_contact_by_index=", index)
+        # wd.find_elements(By.NAME, "selected[]")[index].click()
+        wd.find_element(By.CSS_SELECTOR, 'input[value="%s"]' % id).click()
 
     def edit_first_contact(self, contact):
         self.edit_contact_by_index(0, contact)
@@ -93,6 +111,23 @@ class ContactHelper:
         self.select_contact_by_index(index)
         # click href edit
         wd.find_elements(By.CSS_SELECTOR, 'img[alt="Edit"]')[index].click()
+        self.fill_contact_form(contact)
+        # update button click
+        # wd.find_element(By.NAME, "update").click()
+        wd.find_element(By.CSS_SELECTOR, 'input[type="submit"][name="update"]').click()
+        self.contact_cache = None
+
+    def edit_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_home_page()
+        print("id in edit_cont_by_id=", id)
+        # check first contact
+        # wd.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').click()
+        # wd.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]')[index].click()
+        self.select_contact_by_id(id)
+        # click href edit
+        # wd.find_elements(By.CSS_SELECTOR, 'img[alt="Edit"]')[index].click()
+        wd.find_element(By.XPATH, f'//a[@href="edit.php?id={id}"]').click()
         self.fill_contact_form(contact)
         # update button click
         # wd.find_element(By.NAME, "update").click()

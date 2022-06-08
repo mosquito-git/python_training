@@ -10,7 +10,9 @@ connection = pymysql.connect(host='127.0.0.1',
 
 try:
     cursor = connection.cursor()
-    cursor.execute("select * from group_list;")
+    # sql = "select * from group_list;"
+    sql = "select id,firstname,middlename,lastname from addressbook"
+    cursor.execute(sql)
     for row in cursor.fetchall():
         print(row)
 finally:
