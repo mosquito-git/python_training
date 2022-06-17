@@ -5,8 +5,6 @@ from fixture.orm import ORMFixture
 import re
 
 
-# db_orm = ORMFixture(host='127.0.0.1', user='root', password='', name='addressbook')
-
 
 def test_add_contact_in_group1(app, db, orm):
     if len(orm.get_contact_list()) == 0:
@@ -15,24 +13,19 @@ def test_add_contact_in_group1(app, db, orm):
         app.group.create(Group(name="super", header="puper", footer="grp"))
     # print(list(db_orm.get_contacts_in_group))
     # if len(db_orm.get_contacts_in_group)
-    print('cnt=', db.count_contacts_in_group())
+    # print('cnt=', db.count_contacts_in_group())
     if db.count_contacts_in_group() == 0:
         grp_to_check = app.contact.add_to_group()
         print('grp_to_check=', grp_to_check)
         contacts_from_grp_cont_page = sorted(app.contact.get_grp_cont_page(grp_to_check), key=Contact.id_or_max)
         contacts_from_grp_cont_db = sorted(orm.get_contacts_in_group(Group(id=grp_to_check)), key=Contact.id_or_max)
-        # print('\ncontacts_from_grp_cont_page=', contacts_from_grp_cont_page)
-        # print('\ncontacts_from_grp_cont_db=', contacts_from_grp_cont_db)
-        # print('len=', len(contacts_from_grp_cont_db))
+
 
     else:
         grp_id = db.get_group_id_in_contacts_in_group()
         print('grp_id = ', grp_id)
         contacts_from_grp_cont_page = sorted(app.contact.get_grp_cont_page(grp_id), key=Contact.id_or_max)
         contacts_from_grp_cont_db = sorted(orm.get_contacts_in_group(Group(id=grp_id)), key=Contact.id_or_max)
-        # print('\ncontacts_from_grp_cont_page=', contacts_from_grp_cont_page)
-        # print('\ncontacts_from_grp_cont_db=', contacts_from_grp_cont_db)
-        # print('len=', len(contacts_from_grp_cont_db))
 
     for i in range(len(contacts_from_grp_cont_db)):
         assert contacts_from_grp_cont_page[i].firstname == contacts_from_grp_cont_db[i].firstname

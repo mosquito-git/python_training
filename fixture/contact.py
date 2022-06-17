@@ -236,31 +236,7 @@ class ContactHelper:
 
     def get_grp_cont_page(self, grp_id):
         self.click_group_page(grp_id)
-        time.sleep(2)
-        # self.contact_cache = []
-        # нужно взять элементы для проверки теперь
-        # for element in wd.find_elements(By.CSS_SELECTOR, 'tr[name="entry"]'):
-        #     td = element.find_elements(By.CSS_SELECTOR, 'td')
-        #     # print('lastname=',td[1].text)
-        #     # print('firstname=', td[2].text)
-        #     id = element.find_element(By.CSS_SELECTOR, 'input[type="checkbox"][name="selected[]"]').get_attribute(
-        #         "value")
-        #     # print("id=", id)
-        #     all_phones = td[5].text
-        #     address = td[3].text
-        #     emails_td = td[4]
-        #     all_emails_selen = emails_td.find_elements(By.CSS_SELECTOR, 'a')
-        #     all_emails = list(map(lambda x: x.text, all_emails_selen))
-        #     self.contact_cache.append(Contact(firstname=td[2].text, lastname=td[1].text, id=id,
-        #                                       address=address,
-        #                                       home=all_phones.split()[0],
-        #                                       mobile=all_phones.split()[1],
-        #                                       work=all_phones.split()[2],
-        #                                       phone2=all_phones.split()[3],
-        #                                       all_phones_from_home_page=all_phones.split(),
-        #                                       # all_phones_from_home_page=all_phones,
-        #                                       all_emails_from_home_page=all_emails))
-        # return list(self.contact_cache)
+        time.sleep(1)
         return self.get_contact_form_some_page()
 
     def get_contact_form_some_page(self):
