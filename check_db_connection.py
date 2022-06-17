@@ -16,6 +16,7 @@ try:
     # for group in groups:
     #     print(group)
     # print(len(groups))
+
     l = db.get_contacts_in_group(Group(id='104'))
     for item in l:
         print(item)

@@ -1,3 +1,5 @@
+import random
+
 import pymysql.cursors
 from model.group import Group
 from model.contact import Contact
@@ -47,3 +49,22 @@ class DbFixture:
 
     def destroy(self):
         self.connection.close()
+
+    def count_contacts_in_group(self):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select count(id) from address_in_groups")
+            cnt = cursor.fetchone()
+        finally:
+            cursor.close()
+        return cnt[0]
+
+    def get_group_id_in_contacts_in_group(self):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select group_id from address_in_groups group by group_id")
+            grp_id = cursor.fetchall()
+            print('grp in cursor = ', grp_id)
+        finally:
+            cursor.close()
+        return random.choice(grp_id)[0]
