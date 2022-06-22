@@ -13,6 +13,7 @@ def test_add_contact_in_group1(app, db, orm):
         app.group.create(Group(name="super", header="puper", footer="grp"))
     grp = random.choice(orm.get_group_list())
     # print('grp_list = ', grp)
+    app.contact.check_all_contact_in_group(grp, orm)
     cont = random.choice(orm.get_contacts_not_in_group(Group(id=grp.id)))
     app.contact.add_to_group2(grp, cont)
     assert cont in orm.get_contacts_in_group(Group(id=grp.id))

@@ -1,10 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from model.contact import Contact
+# from model.contact import Contact
 import re
 import time
 import random
 import time
+from model.group import Group
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -238,7 +240,14 @@ class ContactHelper:
         wd = self.app.wd
         # rnd_cont = random.choice(self.get_contact_list())
         # cont_id = rnd_cont.id
+        # cont_in_grp = orm.get_contacts_in_group(grp.id)
+        # cont_list = orm.get_contact_list()
+        # if len(cont_in_grp) == len(cont_list):
+        #     self.create(cont)
+        # cont_not_in_grp = orm.get_contacts_not_in_group(grp.id)
+        # self.select_contact_by_id(random.choice(cont_not_in_grp).id)
         self.select_contact_by_id(cont.id)
+        # self.select_contact_by_id(cont.id)
         to_grp = wd.find_element(By.CSS_SELECTOR, 'select[name="to_group"]')
         # rnd_grp_val = random.choice(to_grp.find_elements(By.CSS_SELECTOR, 'option')).get_attribute('value')
         # rnd_val = random.choice(list_opt).get_attribute('value')
@@ -249,6 +258,13 @@ class ContactHelper:
         # print('r_val=', rnd_grp_val)
         self.return_to_home_page
         # return rnd_grp_val
+
+    def check_all_contact_in_group(self, grp, orm):
+        cont_in_grp = orm.get_contacts_in_group(Group(id=grp.id))
+        cont_list = orm.get_contact_list()
+        if len(cont_in_grp) == len(cont_list):
+            self.create(Contact(firstname="test2", middlename="test2", lastname="test2"))
+            self.return_to_home_page()
 
     def get_grp_cont_page(self, grp_id):
         self.click_group_page(grp_id)
