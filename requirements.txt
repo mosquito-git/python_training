@@ -4,3 +4,4 @@ jsonpickle
 pymysql
 pony
 setuptools==58.0.0
+virtualenv
